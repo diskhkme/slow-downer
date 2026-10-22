@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- 앱 아이콘 원본. 변경 후: pnpm tauri icon src-tauri/app-icon.svg -->
+  <rect x="32" y="32" width="960" height="960" rx="210" fill="#1f2228"/>
+  <!-- 루프 구간 -->
+  <rect x="452" y="200" width="248" height="624" rx="28" fill="#4f9cf0" fill-opacity="0.28"/>
+  <!-- 파형 막대 (루프 안은 파란색) -->
+  <g stroke-linecap="round" stroke-width="44">
+    <g stroke="#8b9099">
+      <line x1="176" y1="452" x2="176" y2="572"/>
+      <line x1="248" y1="372" x2="248" y2="652"/>
+      <line x1="320" y1="300" x2="320" y2="724"/>
+      <line x1="392" y1="412" x2="392" y2="612"/>
+      <line x1="760" y1="392" x2="760" y2="632"/>
+      <line x1="832" y1="462" x2="832" y2="562"/>
+    </g>
+    <g stroke="#4f9cf0">
+      <line x1="504" y1="272" x2="504" y2="752"/>
+      <line x1="576" y1="352" x2="576" y2="672"/>
+      <line x1="648" y1="432" x2="648" y2="592"/>
+    </g>
+  </g>
+</svg>

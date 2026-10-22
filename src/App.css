@@ -1,0 +1,476 @@
+:root {
+  --bg: #16181c;
+  --panel: #1f2228;
+  --border: #2e323a;
+  --text: #e3e5e8;
+  --muted: #8b9099;
+  --accent: #4f9cf0;
+  --error: #f07070;
+
+  color-scheme: dark;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+/* 한 화면: 왼쪽 플레이리스트, 오른쪽 파형 + 컨트롤 */
+.layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr) 260px;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 오른쪽 루프 열: 높이를 꽉 채우고 목록만 스크롤 */
+.loops-column {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 20px 16px 20px 0;
+}
+
+.loops-column .loops {
+  flex: 1;
+  min-height: 0;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px 24px;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+/* 내용이 창보다 길면 줄이지 말고 스크롤한다 (줄이면 overflow:hidden인 파형만 잘린다) */
+.main > * {
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.panel-title .hint {
+  font-weight: normal;
+}
+
+/* 속도/피치 줄: 이름 | 슬라이더 | − | 숫자 | + | 단위 (피치는 −/+ 자리를 비워 정렬 유지) */
+.step-row {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 22px auto 22px 32px;
+  align-items: center;
+  column-gap: 6px;
+}
+
+.step-row label {
+  color: var(--muted);
+}
+
+.step-row input[type='range'] {
+  min-width: 0;
+  margin-right: 4px;
+}
+
+/* 미세 조정 버튼은 평소엔 눈에 덜 띄게 */
+button.fine {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  line-height: 1;
+  color: var(--muted);
+  background: none;
+}
+
+/* 속도·피치와 음량 패널을 위아래로 쌓아 슬라이더를 길게 쓴다 (10% 한 칸이 충분히 넓도록) */
+.settings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.eq {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.eq-band {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* 슬라이더 기본 최소 폭 때문에 칸 밖으로 넘치지 않도록 */
+.eq-band input[type='range'] {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.eq-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eq-band .number-field {
+  width: 48px;
+  padding: 3px 6px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.row label {
+  width: 36px;
+  color: var(--muted);
+}
+
+.row input[type='range'] {
+  flex: 1;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.time {
+  font-size: 18px;
+  font-variant-numeric: tabular-nums;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.unit {
+  width: 32px;
+  color: var(--muted);
+}
+
+button,
+select,
+.number-field {
+  font: inherit;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+
+button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+button:disabled {
+  opacity: 0.4;
+}
+
+select {
+  flex: 1;
+}
+
+.number-field {
+  width: 56px;
+  padding: 6px 8px;
+  text-align: right;
+}
+
+input[type='range'] {
+  accent-color: var(--accent);
+}
+
+.error {
+  color: var(--error);
+}
+
+.waveform {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.waveform.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 181px;
+  color: var(--muted);
+}
+
+.section-title {
+  width: 36px;
+  color: var(--muted);
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.toggle.on {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.loops ul {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* 좁은 열이라 이름과 구간을 두 줄로 */
+.loops li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'name del'
+    'range del';
+  align-items: center;
+  column-gap: 6px;
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.loops li:hover {
+  background: var(--bg);
+}
+
+.loops li.active {
+  border-color: var(--accent);
+  background: var(--bg);
+}
+
+.loops .name,
+.loops .name-edit {
+  grid-area: name;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.loops .range {
+  grid-area: range;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.loops .delete {
+  grid-area: del;
+  padding: 0 6px;
+  border: none;
+  background: none;
+  color: var(--muted);
+}
+
+.loops .panel-title {
+  flex-wrap: wrap;
+}
+
+.name-edit {
+  flex: 1;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+/* 눈금자가 파형 위에 겹치지 않고 별도 띠(20px + 경계선 1px)를 차지하도록 (Waveform.tsx RULER_HEIGHT와 같은 값).
+   진행/커서/루프 영역은 원래 래퍼 맨 위부터 그려지므로 같은 만큼 아래로 내린다 (인라인 스타일보다 우선하도록 !important) */
+.waveform ::part(timeline-wrapper) {
+  height: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.waveform ::part(progress),
+.waveform ::part(cursor),
+.waveform ::part(regions-container) {
+  top: 21px !important;
+  height: calc(100% - 21px) !important;
+}
+
+/* wavesurfer는 진행 구간 아래의 기본 파형을 숨긴다. 루프 중 진행색을 루프 앞에서 잘라내면
+   그 자리가 비어 보이므로 기본 파형은 항상 다 그린다 */
+.waveform ::part(canvases) {
+  clip-path: none !important;
+}
+
+/* ---------- 플레이리스트 ---------- */
+
+.playlist {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 10px;
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+}
+
+.playlist-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+}
+
+.playlist-header select,
+.playlist-header .name-edit {
+  flex: 1;
+  min-width: 0;
+}
+
+button.icon {
+  padding: 5px 8px;
+  line-height: 1;
+}
+
+button.danger {
+  color: var(--error);
+  border-color: var(--error);
+  white-space: nowrap;
+}
+
+.add-tracks {
+  margin: 0 6px;
+}
+
+.playlist .hint,
+.playlist .empty {
+  padding: 0 6px;
+}
+
+.playlist .empty {
+  color: var(--muted);
+  padding-top: 24px;
+  text-align: center;
+}
+
+.playlist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+}
+
+.track:hover {
+  background: var(--panel);
+}
+
+.track.active {
+  background: var(--panel);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.track.missing .name {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.track.dragging {
+  opacity: 0.4;
+}
+
+.track .name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.track .duration {
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.track .delete {
+  padding: 0 6px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  visibility: hidden;
+}
+
+.track:hover .delete {
+  visibility: visible;
+}
+
+/* 드롭될 위치 표시선 */
+.drop-line {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  pointer-events: none;
+}
+
+.drop-line.before {
+  top: -1px;
+}
+
+.drop-line.after {
+  bottom: -1px;
+}
+
+.playlist.dragging,
+.playlist.dragging .track {
+  cursor: grabbing;
+}
+
+.import-error {
+  padding: 0 6px;
+  font-size: 12px;
+  cursor: pointer;
+}

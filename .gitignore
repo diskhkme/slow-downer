@@ -1,0 +1,9 @@
+node_modules/
+
+# Phase 0 테스트 음원과 렌더 결과 (저작권 음원, 대용량)
+tools/stretch-test/input/
+tools/stretch-test/output/
+dist/
+*.local
+.vscode/*
+!.vscode/extensions.json
